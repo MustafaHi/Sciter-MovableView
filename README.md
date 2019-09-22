@@ -6,7 +6,7 @@ The library is light weight and should use less than 1% CPU while using it (movi
 
 ## Install
 Add this file to your resources/UI folder
-```
+```php
 movableView.tis
 ```
 
