@@ -1,0 +1,24 @@
+<html window-frame="transparent">
+<head>
+  <title>Moveable View</title>
+  <style>
+    .header {
+      padding: 10dip;
+      background: #ddd;
+    }
+    .content {
+      height: 115dip;
+      padding: 5dip;
+    }
+  </style>
+  <script src="movableView.tis" type="text/tiscript"></script>
+  <script type="text/tiscript">
+    movableView(".header");
+  </script>
+</head>
+<body>
+  <div class="header">Header</div>
+  <div class="content">Content - Grab the header or footer to move</div>
+  <div class="header">Footer</div>
+</body>
+</html>
