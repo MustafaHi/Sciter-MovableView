@@ -1,9 +1,11 @@
+// Movable View v1.1
+// https://github.com/MustafaHi/Sciter-MovableView
+
 // Call movableView('.selector');
 function movableView(s)
 {
   var xoff,yoff;
   var dragging = false;
-  var body = $({s});
   function doDrag() { while( dragging ) view.doEvent(); }
     
   function onMouseDown(e)
@@ -19,7 +21,7 @@ function movableView(s)
   {
     if( dragging )
     {
-      view.move( e.xScreen - xoff, e.yScreen - yoff, true);
+      view.move( e.xScreen - xoff, e.yScreen - yoff, false);
       return true;
     }
     return true;
