@@ -1,5 +1,8 @@
 # MovableView
-Movable view for Sciter transparent windows
+Movable view for Sciter transparent windows, allows you to move the window using any element in it.  
+Advantages:
+1. Cheating windows performance setting, you will see the full window and not just a rectangle while moving it in perforamance mode.
+2. Smoothed animation.
 
 The library is light weight and should use less than 1% CPU while using it (moving the view).
 
