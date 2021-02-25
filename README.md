@@ -1,8 +1,8 @@
-# MovableView
+# MovableView v1.2
 Movable view for Sciter windows, allows you to move the window using any element in it.  
 Advantages:
 1. Cheating windows performance setting, you will see the full window and not just a rectangle while moving it in performance mode.
-2. Smoothed movement.
+2. Optional prevent crossing screen bounds.
 
 Using inside a compiled application should use less than 1% CPU (while moving the view).
 
@@ -24,6 +24,7 @@ include "movableView.tis";
 
 Then initiate it by calling
 ```js
-movableView("selector");
+movableView("selector" [, screenBound:bool(false)]);
 ```
-with the selector being any CSS selector i.e. `div` `.div` `#div`
+with the selector being any CSS selector i.e. `div` `.div` `#div`  
+the second parameter will prevent window from going past the screen boundaries.

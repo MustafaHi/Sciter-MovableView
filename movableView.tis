@@ -1,44 +1,63 @@
-// Movable View v1.1
+// Movable View v1.2
 // https://github.com/MustafaHi/Sciter-MovableView
 
-// Call movableView('.selector');
-function movableView(s)
+// Call movableView('selector' [, screenBound:bool(false)]);
+function movableView(s, screenBound = false)
 {
-  var xoff,yoff;
+  var xoff,yoff, minXY, maxX, maxY;
   var dragging = false;
+  
   function doDrag() { while( dragging ) view.doEvent(); }
+
+  function screenBounds()
+  {
+    if (screenBound)
+    {
+      (maxX, maxY) = view.screenBox(#workarea, #dimension);
+      var (w, h)   = view.box(#dimension, #border);
+      maxX -= w;
+      maxY -= h;
+      minXY = 0;
+    }
+    else
+    {
+      (maxX, maxY) = Integer.MAX;
+             minXY = Integer.MIN;
+    }
+  }
     
   function onMouseDown(e)
   {
-    if(!e.target.$is({s}) ){ return false; }
+    if(!e.target.$is({s}) ) { return false; }
+
+    screenBounds();
     e.target.capture(true);
     xoff = e.xView; yoff = e.yView;
     dragging = true;
     doDrag();
   }
-    
+  
   function onMouseMove(e)
   {
-    if( dragging )
+    if(dragging)
     {
-      view.move( e.xScreen - xoff, e.yScreen - yoff, false);
-      return true;
+      view.move( (e.xScreen - xoff).limit(minXY, maxX), (e.yScreen - yoff).limit(minXY, maxY), false );
     }
     return true;
   }
     
-  function stopDrag(e)
+  function onMouseUp(e)
   {
-    if(dragging) { dragging = false; e.target.capture(false); return true; }
-    return false;
+    if(dragging) { dragging = false; e.target.capture(false); }
+    return true;
   }
     
-  function onKeyDown(e) { if(e.keyCode == Event.VK_ESCAPE ) return stopDrag(e); }
-    for(var i=0; i<$$({s}).length; ++i) {
-      $$({s})[i].subscribe(onMouseDown, Event.MOUSE, Event.MOUSE_DOWN );
-      $$({s})[i].subscribe(stopDrag, Event.MOUSE, Event.MOUSE_UP );
-      $$({s})[i].subscribe(onMouseMove, Event.MOUSE, Event.MOUSE_MOVE );
-      $$({s})[i].subscribe(onKeyDown, Event.KEY, Event.KEY_DOWN );
+    const elements = $$({s});
+    for(var i=0; i<elements.length; ++i) {
+      elements[i].subscribe(onMouseDown, Event.MOUSE, Event.MOUSE_DOWN );
+      elements[i].subscribe(onMouseUp,   Event.MOUSE, Event.MOUSE_UP   );
+      elements[i].subscribe(onMouseMove, Event.MOUSE, Event.MOUSE_MOVE );
     }
-  return false;
+  return true;
 }
+
