@@ -3,7 +3,8 @@ Movable view for Sciter windows, allows you to move the window using any element
 Advantages:
 1. Cheating windows performance setting, you will see the full window and not just a rectangle while moving it in performance mode.
 2. Optional prevent crossing screen bounds.
-3. Does NOT conflict with CSS cursor properties, unlike `window-role="caption"`.
+3. Does NOT conflict with CSS cursor properties, unlike `role="window-caption"`.
+4. Allows dragging beyond the top edge of the screen, which is prevented by Aero Snap on Windows when using `role="window-caption"`.
 
 Using inside a compiled application should use less than 1% CPU (while moving the view).
 
