@@ -12,14 +12,21 @@
     }
   </style>
   <script src="movableView.tis" type="text/tiscript"></script>
+  <script src="movableView.js"  type="text/javascript"></script>
   <script type="text/tiscript">
+    // include "movableView.tis";
+    movableView(".header");
+    movableView(".footer", true);
+  </script>
+  <script type="text/javascript" type="module">
+    // import movableView from "movableView.js";
     movableView(".header");
     movableView(".footer", true);
   </script>
 </head>
 <body>
   <div class="header">Header</div>
-  <div class="content">Content - Grab the header or footer to move (footer will not allow you to cross screen bounds)</div>
+  <div class="content">Grab the header or footer to move (footer will not allow you to cross screen bounds)</div>
   <div class="footer">Footer</div>
 </body>
 </html>

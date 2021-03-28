@@ -1,7 +1,8 @@
-// Movable View v1.2
-// https://github.com/MustafaHi/Sciter-MovableView
+//| Movable View v1.3.0
+//| https://github.com/MustafaHi/Sciter-MovableView
 
-// Call movableView('selector' [, screenBound:bool(false)]);
+// Call movableView('selector', true|false);
+
 function movableView(s, screenBound = false)
 {
   var xoff,yoff, minXY, maxX, maxY;
@@ -32,7 +33,10 @@ function movableView(s, screenBound = false)
 
     screenBounds();
     e.target.capture(true);
-    xoff = e.xView; yoff = e.yView;
+
+    var (x,y) = view.box(#position, #border, #screen);
+    xoff = e.xScreen - x; yoff = e.yScreen - y;
+
     dragging = true;
     doDrag();
   }
@@ -43,13 +47,15 @@ function movableView(s, screenBound = false)
     {
       view.move( (e.xScreen - xoff).limit(minXY, maxX), (e.yScreen - yoff).limit(minXY, maxY), false );
     }
-    return true;
   }
     
   function onMouseUp(e)
   {
-    if(dragging) { dragging = false; e.target.capture(false); }
-    return true;
+    if(dragging)
+    {
+      dragging = false;
+      e.target.capture(false);
+    }
   }
     
     const elements = $$({s});
@@ -58,6 +64,6 @@ function movableView(s, screenBound = false)
       elements[i].subscribe(onMouseUp,   Event.MOUSE, Event.MOUSE_UP   );
       elements[i].subscribe(onMouseMove, Event.MOUSE, Event.MOUSE_MOVE );
     }
-  return true;
+  return elements.length ? true : false;
 }
 
